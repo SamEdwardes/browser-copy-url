@@ -17,6 +17,73 @@
 
 (function() {
     'use strict';
+
+    // Create notification element
+    function createNotification() {
+        const notif = document.createElement('div');
+        notif.id = 'browser-copy-url-notification';
+        notif.style.position = 'fixed';
+        notif.style.bottom = '20px';
+        notif.style.right = '20px';
+        notif.style.padding = '10px 15px';
+        notif.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        notif.style.color = 'white';
+        notif.style.borderRadius = '4px';
+        notif.style.zIndex = '999999';
+        notif.style.fontSize = '14px';
+        notif.style.boxShadow = '0 2px 5px rgba(0,0,0,0.3)';
+        notif.style.opacity = '0';
+        notif.style.transform = 'translateY(10px)';
+        notif.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        notif.style.maxWidth = '80vw';
+        notif.style.wordBreak = 'break-word';
+        document.body.appendChild(notif);
+        return notif;
+    }
+
+    // Show notification with copied text
+    function showNotification(message, textCopied) {
+        // Get or create notification element
+        let notif = document.getElementById('browser-copy-url-notification');
+        if (!notif) {
+            notif = createNotification();
+        }
+
+        // Set notification content
+        const messageText = document.createElement('div');
+        messageText.textContent = message;
+        messageText.style.marginBottom = '5px';
+        messageText.style.fontWeight = 'bold';
+
+        const copiedText = document.createElement('div');
+        copiedText.textContent = textCopied;
+        copiedText.style.fontSize = '12px';
+        copiedText.style.opacity = '0.8';
+        copiedText.style.textOverflow = 'ellipsis';
+        copiedText.style.overflow = 'hidden';
+        copiedText.style.maxHeight = '60px';
+        
+        // Clear previous content and add new content
+        notif.innerHTML = '';
+        notif.appendChild(messageText);
+        notif.appendChild(copiedText);
+
+        // Show notification
+        notif.style.opacity = '1';
+        notif.style.transform = 'translateY(0)';
+
+        // Hide after 3 seconds
+        setTimeout(() => {
+            notif.style.opacity = '0';
+            notif.style.transform = 'translateY(10px)';
+            // Remove from DOM after fade out
+            setTimeout(() => {
+                if (notif.parentNode) {
+                    notif.parentNode.removeChild(notif);
+                }
+            }, 300);
+        }, 3000);
+    }
     
     // Check browser compatibility
     function checkBrowserCompatibility() {
@@ -119,7 +186,9 @@
         navigator.clipboard.writeText(textToCopy)
             .then(() => {
                 console.log(`URL copied as ${asMarkdown ? 'markdown' : 'plain text'}: ${textToCopy}`);
-                // Optional: provide visual feedback here
+                // Show notification with copied text
+                const message = `URL copied as ${asMarkdown ? 'markdown' : 'plain text'}`;
+                showNotification(message, textToCopy)
             })
             .catch(err => {
                 console.error('Failed to copy URL: ', err);
@@ -138,6 +207,9 @@
                     const successful = document.execCommand('copy');
                     if (successful) {
                         console.log(`URL copied using fallback method as ${asMarkdown ? 'markdown' : 'plain text'}: ${textToCopy}`);
+                        // Show notification with copied text
+                        const message = `URL copied as ${asMarkdown ? 'markdown' : 'plain text'}`;
+                        showNotification(message, textToCopy);
                     } else {
                         console.error('Fallback copy method failed');
                     }
