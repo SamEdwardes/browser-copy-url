@@ -1,10 +1,6 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(bun playwright test:*)",
-      "Bash(just)",
-      "Bash(just test-report:*)"
-    ],
+    "allow": ["Bash(bun playwright test:*)", "Bash(just)", "Bash(just test-report:*)"],
     "deny": []
   }
 }

@@ -152,6 +152,7 @@ bun run serve
 - `playwright.config.ts` - Playwright configuration
 
 The tests verify:
+
 - Clipboard operations work correctly
 - Notification displays properly and contains the expected text
 - Special URL handling for Atlassian domains works as expected
@@ -160,4 +161,3 @@ The tests verify:
 ## License
 
 MIT
-

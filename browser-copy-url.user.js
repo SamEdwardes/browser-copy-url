@@ -82,7 +82,8 @@
   // Check browser compatibility
   function checkBrowserCompatibility() {
     // Check if Clipboard API is supported
-    const clipboardSupported = navigator.clipboard && typeof navigator.clipboard.writeText === 'function';
+    const clipboardSupported =
+      navigator.clipboard && typeof navigator.clipboard.writeText === 'function';
 
     if (!clipboardSupported) {
       console.warn('browser-copy-url: Clipboard API not supported in this browser');
@@ -96,7 +97,9 @@
     if (
       (userAgent.includes('firefox') && !isMinimumVersion(userAgent, 'firefox', 63)) ||
       (userAgent.includes('chrome') && !isMinimumVersion(userAgent, 'chrome', 66)) ||
-      (userAgent.includes('safari') && !userAgent.includes('chrome') && !isMinimumVersion(userAgent, 'safari', 13.1)) ||
+      (userAgent.includes('safari') &&
+        !userAgent.includes('chrome') &&
+        !isMinimumVersion(userAgent, 'safari', 13.1)) ||
       (userAgent.includes('edg') && !isMinimumVersion(userAgent, 'edg', 79))
     ) {
       console.warn('browser-copy-url: Your browser version may not fully support this feature');
@@ -109,10 +112,10 @@
   // Helper function to check minimum browser version
   function isMinimumVersion(userAgent, browser, minVersion) {
     const versionRegexes = {
-      'chrome': /chrome\/([\\d.]+)/,
-      'firefox': /firefox\/([\\d.]+)/,
-      'safari': /version\/([\\d.]+).*safari/,
-      'edg': /edg\/([\\d.]+)/
+      chrome: /chrome\/([\\d.]+)/,
+      firefox: /firefox\/([\\d.]+)/,
+      safari: /version\/([\\d.]+).*safari/,
+      edg: /edg\/([\\d.]+)/,
     };
 
     const match = userAgent.match(versionRegexes[browser]);
@@ -135,7 +138,9 @@
   function init() {
     // Add keyboard event listener
     document.addEventListener('keydown', handleKeyDown);
-    console.log(`browser-copy-url: Initialized. Use ${isMac ? 'Cmd' : 'Ctrl'}+Shift+C to copy URL.`);
+    console.log(
+      `browser-copy-url: Initialized. Use ${isMac ? 'Cmd' : 'Ctrl'}+Shift+C to copy URL.`
+    );
   }
 
   // Handle keyboard shortcuts
@@ -177,14 +182,15 @@
     }
 
     // Copy to clipboard with fallback
-    navigator.clipboard.writeText(textToCopy)
+    navigator.clipboard
+      .writeText(textToCopy)
       .then(() => {
         console.log(`URL copied as ${asMarkdown ? 'markdown' : 'plain text'}: ${textToCopy}`);
         // Show notification with copied text
         const message = `URL copied as ${asMarkdown ? 'markdown' : 'plain text'}`;
-        showNotification(message, textToCopy)
+        showNotification(message, textToCopy);
       })
-      .catch(err => {
+      .catch((err) => {
         console.error('Failed to copy URL: ', err);
 
         // Fallback method for some browsers
@@ -200,7 +206,9 @@
 
           const successful = document.execCommand('copy');
           if (successful) {
-            console.log(`URL copied using fallback method as ${asMarkdown ? 'markdown' : 'plain text'}: ${textToCopy}`);
+            console.log(
+              `URL copied using fallback method as ${asMarkdown ? 'markdown' : 'plain text'}: ${textToCopy}`
+            );
             // Show notification with copied text
             const message = `URL copied as ${asMarkdown ? 'markdown' : 'plain text'}`;
             showNotification(message, textToCopy);
