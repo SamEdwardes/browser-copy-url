@@ -4,6 +4,8 @@
   "devDependencies": {
     "@playwright/test": "^1.54.2",
     "@types/bun": "latest",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
     "prettier": "^3.6.2"
   },
   "peerDependencies": {
@@ -13,6 +15,13 @@
     "serve": "bun run server.js",
     "test": "bun playwright test",
     "test:ui": "bun playwright test --ui",
-    "test:debug": "bun playwright test --debug"
+    "test:debug": "bun playwright test --debug",
+    "format": "prettier --write '**/*.{js,ts,json,md,html}'",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{js,ts,json,md,html}": [
+      "prettier --write"
+    ]
   }
 }

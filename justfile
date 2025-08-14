@@ -2,7 +2,7 @@
 # https://github.com/casey/just
 
 # List available recipes
-default:
+@_:
     @just --list
 
 # Install dependencies
@@ -31,10 +31,10 @@ test-report:
     @echo "Opening test report..."
     open playwright-report/index.html
 
-# Format all JavaScript/TypeScript files
+# Format all JavaScript/TypeScript/HTML files
 format:
     @echo "Formatting code..."
-    bun prettier --write "**/*.{js,ts,json,md}"
+    bun run format
 
 # Validate bookmarklet code size
 check-bookmarklet:

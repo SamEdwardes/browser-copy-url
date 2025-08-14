@@ -66,11 +66,25 @@ A lightweight JavaScript utility that enhances web browsing by adding convenient
 
 ## Development
 
+### Code Style
+
+This project uses Prettier for consistent code formatting. Formatting is automatically applied as a pre-commit hook using Husky and lint-staged.
+
+```bash
+# Format all files manually
+bun run format
+# or with just
+just format
+```
+
+### Modifying Code
+
 To modify the code:
 
 1. Edit the desired JavaScript file (`browser-copy-url.js`, `browser-copy-url.user.js`, or `browser-copy-url.bookmarklet.js`)
 2. If editing the bookmarklet, ensure the code remains compact and self-contained
 3. Test in various browsers to ensure compatibility
+4. Commit your changes - formatting will be applied automatically
 
 ## Testing
 
