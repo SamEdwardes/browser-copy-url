@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEST-123 [Bug] Some issue with brackets</title>
+  <script>
+    // Simulate Atlassian URL for testing
+    window.fakeUrl = 'https://example.atlassian.net/browse/TEST-123';
+    // Override window.location.href to return our fake URL
+    Object.defineProperty(window.location, 'href', {
+      get: function() {
+        return window.fakeUrl || document.URL;
+      }
+    });
+  </script>
+  <script src="/browser-copy-url.js"></script>
+</head>
+<body>
+  <h1>Atlassian Test Page</h1>
+  <p>This page simulates an Atlassian page for testing bracket removal in titles.</p>
+  <p>Press <code>Ctrl+Shift+C</code> to copy the URL in markdown format.</p>
+  
+  <div id="clipboard-content" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; min-height: 30px;">
+    Clipboard content will appear here
+  </div>
+  <button id="paste-button">Paste from Clipboard</button>
+
+  <script>
+    document.getElementById('paste-button').addEventListener('click', async () => {
+      try {
+        const text = await navigator.clipboard.readText();
+        document.getElementById('clipboard-content').textContent = text;
+      } catch (err) {
+        console.error('Failed to read clipboard contents: ', err);
+        document.getElementById('clipboard-content').textContent = 'Failed to read clipboard: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
