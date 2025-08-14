@@ -88,14 +88,25 @@
     
     // Copy URL function with format option
     function copyUrl(asMarkdown) {
-        const url = window.location.href;
+        let url = window.location.href;
         const pageTitle = document.title;
+        
+        // Strip parameters from force.com URLs
+        if (url.includes('force.com') && url.includes('?')) {
+            url = url.split('?')[0];
+        }
         
         let textToCopy = url;
         
         // Format as markdown if requested
         if (asMarkdown) {
-            textToCopy = `[${pageTitle}](${url})`;
+            // Special handling for Atlassian.net URLs - remove square brackets from title
+            if (url.includes('atlassian.net')) {
+                const cleanTitle = pageTitle.replace(/[\[\]]/g, '');
+                textToCopy = `[${cleanTitle}](${url})`;
+            } else {
+                textToCopy = `[${pageTitle}](${url})`;
+            }
         }
         
         // Copy to clipboard with fallback
