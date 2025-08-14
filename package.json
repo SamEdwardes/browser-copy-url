@@ -1,0 +1,17 @@
+{
+  "name": "browser-copy-url",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "^1.54.2",
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "scripts": {
+    "serve": "bun run server.js",
+    "test": "bun playwright test",
+    "test:ui": "bun playwright test --ui",
+    "test:debug": "bun playwright test --debug"
+  }
+}

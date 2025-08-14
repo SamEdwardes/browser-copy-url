@@ -2,6 +2,9 @@
 
 A lightweight JavaScript utility that enhances web browsing by adding convenient URL copying functionality to any web page with simple keyboard shortcuts.
 
+> [!WARNING]
+> This project was mostly vibe coded with Claude Code. Use at your own risk.
+
 ## Features
 
 ### 🔗 Quick URL Copy
@@ -68,6 +71,91 @@ To modify the code:
 1. Edit the desired JavaScript file (`browser-copy-url.js`, `browser-copy-url.user.js`, or `browser-copy-url.bookmarklet.js`)
 2. If editing the bookmarklet, ensure the code remains compact and self-contained
 3. Test in various browsers to ensure compatibility
+
+## Testing
+
+This project uses Playwright for automated testing. The tests verify functionality such as keyboard shortcuts, clipboard operations, URL formatting, and notification displays.
+
+### Prerequisites
+
+- [Bun](https://bun.sh/) - Fast JavaScript runtime and package manager
+
+### Setting Up
+
+```bash
+# Install dependencies
+bun install
+
+# Install Playwright browsers (only needed once)
+bun playwright install chromium
+```
+
+### Running Tests
+
+This project includes a justfile for easy task execution. If you have [just](https://github.com/casey/just) installed, you can use the following commands:
+
+```bash
+# List all available commands
+just
+
+# Install dependencies and set up Playwright
+just setup
+
+# Run tests in headless mode
+just test
+
+# Run tests with UI mode
+just test-ui
+
+# Run tests in debug mode
+just test-debug
+
+# Start the test server
+just serve
+
+# View test report after running tests
+just test-report
+
+# Format code (requires prettier)
+just format
+
+# Run a complete test cycle
+just test-all
+
+# Create distribution files
+just build
+
+# Package for distribution
+just package
+```
+
+Alternatively, you can use Bun directly:
+
+```bash
+# Run all tests headlessly
+bun test
+
+# Run tests with UI mode
+bun test:ui
+
+# Run tests in debug mode
+bun test:debug
+
+# Start the test server manually
+bun run serve
+```
+
+### Test Structure
+
+- `tests/example.html` - Test page for manual and automated testing
+- `tests/copy-url.spec.ts` - Test specifications for the URL copying functionality
+- `playwright.config.ts` - Playwright configuration
+
+The tests verify:
+- Clipboard operations work correctly
+- Notification displays properly and contains the expected text
+- Special URL handling for Atlassian domains works as expected
+- UI elements appear and disappear as intended
 
 ## License
 

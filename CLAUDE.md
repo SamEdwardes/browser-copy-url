@@ -4,6 +4,8 @@
 
 **browser-copy-url** is a lightweight JavaScript utility that enhances web browsing by adding convenient URL copying functionality to any web page. With simple keyboard shortcuts, users can quickly copy the current page's URL in plain text or markdown format.
 
+Refer to @README.md for more details.
+
 ## Features
 
 ### 🔗 Quick URL Copy
