@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Browser Copy URL",
+  "version": "1.0.0",
+  "description": "Copy page URL in plain text or markdown format with keyboard shortcuts",
+  "permissions": ["clipboardWrite"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["browser-copy-url.js"]
+    }
+  ],
+  "action": {
+    "default_title": "Browser Copy URL"
+  }
+}
