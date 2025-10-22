@@ -183,8 +183,24 @@
 
     // Format as markdown if requested
     if (asMarkdown) {
+      // Special handling for Zendesk URLs - format as "Ticket {number} - {clean title}"
+      if (url.includes('zendesk.com')) {
+        // Extract ticket number from URL
+        const ticketMatch = url.match(/\/tickets\/(\d+)/);
+        const ticketNumber = ticketMatch ? ticketMatch[1] : '';
+
+        // Clean the title: remove "Ticket: " prefix and " – {company} – Zendesk" suffix
+        let cleanTitle = pageTitle
+          .replace(/^Ticket:\s*/, '') // Remove "Ticket: " prefix
+          .replace(/\s*–\s*[^–]+\s*–\s*Zendesk\s*$/, '') // Remove " – {any company} – Zendesk" suffix
+          .replace(/\s*–\s*Zendesk\s*$/, '') // Remove " – Zendesk" suffix (fallback)
+          .trim();
+
+        // Format as "Ticket {number} - {clean title}"
+        textToCopy = `[Ticket ${ticketNumber} - ${cleanTitle}](${url})`;
+      }
       // Special handling for Atlassian.net URLs - remove square brackets from title
-      if (url.includes('atlassian.net')) {
+      else if (url.includes('atlassian.net')) {
         const cleanTitle = pageTitle.replace(/[\[\]]/g, '');
         textToCopy = `[${cleanTitle}](${url})`;
       } else {

@@ -77,6 +77,46 @@ test('should handle Atlassian URLs correctly', async ({ page }) => {
   expect(notificationText).not.toContain('[Bug]');
 });
 
+test('should handle Zendesk URLs correctly', async ({ page }) => {
+  // Navigate to our special Zendesk test page
+  await page.goto('/tests/example-zendesk.html');
+
+  // Wait for the script to load and initialize
+  await page.waitForTimeout(500);
+
+  // Set up clipboard write capture
+  const clipboardPromise = page.evaluate(() => {
+    return new Promise((resolve) => {
+      // @ts-ignore
+      navigator.clipboard.writeText = (text) => {
+        resolve(text);
+        return Promise.resolve();
+      };
+    });
+  });
+
+  // Trigger markdown copy
+  await page.keyboard.press('Control+Shift+C');
+
+  // Get the clipboard content
+  const clipboardContent = await clipboardPromise;
+
+  // Split the clipboard content to analyze the markdown components
+  console.log('Clipboard content:', clipboardContent);
+
+  // Verify the formatted title follows the pattern: [Ticket {number} - {clean title}](url)
+  expect(clipboardContent).toMatch(/\[Ticket 122694 - My really hard support problem\]/);
+  expect(clipboardContent).not.toContain('Example Support');
+  expect(clipboardContent).not.toContain('Zendesk');
+  expect(clipboardContent).not.toContain('Ticket:');
+  expect(clipboardContent).toContain('https://example.zendesk.com/agent/tickets/122694');
+
+  // Make sure the notification shows the modified title
+  const notification = await page.waitForSelector('#browser-copy-url-notification');
+  const notificationText = await notification.textContent();
+  expect(notificationText).toContain('Ticket 122694 - My really hard support problem');
+});
+
 test('should show notification with copied text', async ({ page }) => {
   // Navigate to our test page
   await page.goto('/tests/example.html');
