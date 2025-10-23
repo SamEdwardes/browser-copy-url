@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Browser Copy URL
 // @namespace    https://github.com/SamEdwardes/browser-copy-url
-// @version      1.0.0
+// @version      1.1.0
 // @description  Copy page URL in plain text or markdown format with keyboard shortcuts
 // @author       Your Name
 // @match        *://*/*
