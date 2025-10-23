@@ -30,25 +30,11 @@ A lightweight JavaScript utility that enhances web browsing by adding convenient
 - **Atlassian URLs**: Automatically removes square brackets from page titles when creating markdown links
 - **Salesforce URLs**: Strips query parameters from force.com URLs for cleaner sharing
 
-## Installation Options
-
-### Browser Extension
-
-1. Save `browser-copy-url.js` as your extension's content script
-2. Load as an unpacked extension or package for distribution
-3. The functionality will be automatically available on all web pages
-
-### Userscript
+## Installation
 
 1. Install a userscript manager like [Tampermonkey](https://www.tampermonkey.net/) or [Greasemonkey](https://www.greasespot.net/)
 2. Add `browser-copy-url.user.js` to your userscript manager
 3. The script will run automatically on all websites
-
-### Bookmarklet
-
-1. Create a new bookmark in your browser
-2. Set the URL to the contents of `browser-copy-url.bookmarklet.js`
-3. Click the bookmark on any page to activate the URL copy functionality (without keyboard shortcuts)
 
 ## Security Considerations
 
@@ -81,10 +67,9 @@ just format
 
 To modify the code:
 
-1. Edit the desired JavaScript file (`browser-copy-url.js`, `browser-copy-url.user.js`, or `browser-copy-url.bookmarklet.js`)
-2. If editing the bookmarklet, ensure the code remains compact and self-contained
-3. Test in various browsers to ensure compatibility
-4. Commit your changes - formatting will be applied automatically
+1. Edit `browser-copy-url.user.js`
+2. Test in various browsers to ensure compatibility
+3. Commit your changes - formatting will be applied automatically
 
 ## Testing
 
@@ -135,12 +120,6 @@ just format
 
 # Run a complete test cycle
 just test-all
-
-# Create distribution files
-just build
-
-# Package for distribution
-just package
 ```
 
 Alternatively, you can use Bun directly:

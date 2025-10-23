@@ -163,6 +163,11 @@
     let url = window.location.href;
     const pageTitle = document.title;
 
+    // For testing purposes - check if we have a fakeUrl set
+    if (window.fakeUrl) {
+      url = window.fakeUrl;
+    }
+
     // Strip parameters from force.com URLs
     if (url.includes('force.com') && url.includes('?')) {
       url = url.split('?')[0];

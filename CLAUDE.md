@@ -26,7 +26,7 @@ Refer to @README.md for more details.
 
 - **Language**: Pure JavaScript (ES6+)
 - **Dependencies**: None - vanilla JavaScript only
-- **File Structure**: Single file implementation for maximum portability
+- **File Structure**: Single userscript file (`browser-copy-url.user.js`)
 - **Browser Compatibility**: Modern browsers supporting Clipboard API
 
 ### Key Components
@@ -35,23 +35,15 @@ Refer to @README.md for more details.
 - Clipboard API integration for reliable copying
 - Document title extraction for markdown formatting
 - Cross-platform keyboard shortcut handling
+- Special URL handling for Atlassian, Zendesk, and Salesforce URLs
 
 ## Installation & Usage
 
-### Browser Extension
+### Userscript
 
-1. Load the JavaScript file as a content script in your browser extension
-2. The functionality will be automatically available on all web pages
-
-### Bookmarklet
-
-1. Wrap the code in a bookmarklet format
-2. Save as a browser bookmark for on-demand activation
-
-### User Script
-
-1. Use with userscript managers like Tampermonkey or Greasemonkey
-2. Configure to run on all websites
+1. Install a userscript manager like [Tampermonkey](https://www.tampermonkey.net/) or [Greasemonkey](https://www.greasespot.net/)
+2. Add `browser-copy-url.user.js` to your userscript manager
+3. The script will run automatically on all websites
 
 ## Use Cases
 
@@ -80,6 +72,5 @@ _Requires Clipboard API support for secure clipboard access_
 
 - [ ] Customizable keyboard shortcuts
 - [ ] Additional format options (HTML, rich text)
-- [ ] Visual feedback for successful copies
 - [ ] Settings panel for user preferences
 - [ ] Support for copying selected text with URL context
