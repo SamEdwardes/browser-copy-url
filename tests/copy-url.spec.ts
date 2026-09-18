@@ -77,6 +77,40 @@ test('should handle Atlassian URLs correctly', async ({ page }) => {
   expect(notificationText).not.toContain('[Bug]');
 });
 
+test('should strip the Confluence space suffix from Atlassian titles', async ({ page }) => {
+  // Navigate to our special Confluence test page
+  await page.goto('/tests/example-confluence.html');
+
+  // Wait for the script to load and initialize
+  await page.waitForTimeout(500);
+
+  // Set up clipboard write capture
+  const clipboardPromise = page.evaluate(() => {
+    return new Promise((resolve) => {
+      // @ts-ignore
+      navigator.clipboard.writeText = (text) => {
+        resolve(text);
+        return Promise.resolve();
+      };
+    });
+  });
+
+  // Trigger markdown copy
+  await page.keyboard.press('Control+Shift+C');
+
+  // Get the clipboard content
+  const clipboardContent = await clipboardPromise;
+
+  console.log('Clipboard content:', clipboardContent);
+
+  // The " - Engineering - Posit Company Hub" suffix should be gone
+  expect(clipboardContent).toMatch(/^\[Platform Governance Charter 2\.0\]/);
+  expect(clipboardContent).not.toContain('Posit Company Hub');
+  expect(clipboardContent).toContain(
+    'https://positpbc.atlassian.net/wiki/spaces/ENG/pages/2777415708/Platform+Governance+Charter+2.0'
+  );
+});
+
 test('should handle Zendesk URLs correctly', async ({ page }) => {
   // Navigate to our special Zendesk test page
   await page.goto('/tests/example-zendesk.html');

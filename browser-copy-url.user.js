@@ -194,8 +194,12 @@
         textToCopy = `[Ticket ${ticketNumber} - ${cleanTitle}](${url})`;
       }
       // Special handling for Atlassian.net URLs - remove square brackets from title
+      // and strip the trailing " - {space} - Posit Company Hub" Confluence suffix
       else if (url.includes('atlassian.net')) {
-        const cleanTitle = pageTitle.replace(/[\[\]]/g, '');
+        const cleanTitle = pageTitle
+          .replace(/[\[\]]/g, '')
+          .replace(/\s*-\s*[^-]+\s*-\s*Posit Company Hub\s*$/, '')
+          .trim();
         textToCopy = `[${cleanTitle}](${url})`;
       } else {
         textToCopy = `[${pageTitle}](${url})`;
